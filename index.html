@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>Page Title</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+    </head>
+    
+    <body>
+        <ul>
+            <li>
+                <span id="caret-order" class="caret-down">ORDER</span>
+                <ul class="active">
+                    <li>potato1</li>
+                    <li>potato2</li>
+                    <li>potato3</li>
+                </ul>
+            </li>
+            <br>
+            <li>
+                <span id="caret-order2" class="caret-up">ORDER2</span>
+                <ul class="deactive">
+                    <li>potato11</li>
+                    <li>potato12</li>
+                    <li>potato13</li>
+                </ul>
+            </li>
+        </ul>
+    </body>
+
+    <style>
+        ul{
+            list-style-type: none;
+        }
+        .caret-down,.caret-up{
+            cursor:pointer;
+            color:blue;
+            user-select: none;
+        }
+        .caret-down::before,.caret-up::before{
+            content:"\25B6";
+            color:black;
+            display:inline-block;
+            margin-right: 6px;
+        }
+        .caret-down::before{
+            transform: rotate(90deg);
+        }
+        .caret-up::before{
+            transform: rotate(0deg);
+        }
+        .caret-0deg::before{
+            transform:rotate(0deg);
+        }
+        .caret-90deg::before{
+            transform:rotate(90deg);
+        }
+        .active{
+            display:block;
+        }
+        .deactive{
+            display:none;
+        }
+    </style>
+
+    <script>
+        document.getElementById("caret-order").addEventListener("click",function(){
+            var activeElements = document.querySelectorAll(".active");
+            activeElements.forEach(function(element){
+                if(window.getComputedStyle(element).display === "none"){
+                    element.style.display="block";
+                }else{
+                    element.style.display="none";
+                }
+            })
+            this.classList.toggle("caret-0deg");
+        })
+        document.getElementById("caret-order2").addEventListener("click",function(){
+            var activeElements = document.querySelectorAll(".deactive");
+            activeElements.forEach(function(element){
+                if(window.getComputedStyle(element).display === "none"){
+                    element.style.display="block";
+                }else{
+                    element.style.display="none";
+                }
+            })
+            this.classList.toggle("caret-90deg");
+        })
+
+        // Add a transition to the submenu items for a smooth slide-down effect
+        document.querySelectorAll("ul.active").forEach(function (submenu) {
+            submenu.style.transition = "max-height 0.3s ease-in-out";
+        });
+    </script>
+
+</html>
